@@ -1,0 +1,35 @@
+version: coqa
+seed: 1
+exp_name: run
+
+# Repo default. Requires Hugging Face access to Llama 2.
+model: meta-llama/Llama-2-7b-chat-hf
+
+# Start with plain answer generation.
+# Later you can change this to log_prob, self_eval_repetition, etc.
+confidence_method: ""
+
+dataset_name: coqa
+eval_file: ./datasets/coqa_validation.json
+
+# On Kaggle, write outputs somewhere persistent in the notebook session.
+save_dir: /kaggle/working
+
+# Use 50 for smoke test, 500 for a paper-table pilot, -1 for full file.
+sample_num: 500
+
+num_return_sequences: 1
+
+# Important for CoQA. The passage is in docs[0].
+n_doc: 1
+
+# No few-shot demos unless you populate coqa["demos"].
+n_shot: 0
+n_doc_in_demo: 0
+no_doc_in_demo: true
+fewer_doc_in_demo: false
+
+use_shorter: null
+
+# Add this key and patch run.py as shown below.
+max_new_tokens: 64
