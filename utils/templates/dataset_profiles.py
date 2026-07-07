@@ -364,11 +364,63 @@ cnndm = {
     "demos": []  # Usually, we perform 0-shot generation/evaluation on this dataset.
 }
 
+coqa = {
+    "instruction": (
+        "Answer the question using the provided passage. "
+        "Some questions include conversation history. Use that history to resolve pronouns "
+        "and follow-up questions. Give a short answer only. Do not explain."
+    ),
+
+    "eval_instruction": (
+        "Evaluate whether the answer correctly answers the conversational reading-comprehension "
+        "question using the passage and any conversation history in the question."
+    ),
+
+    "criterion": (
+        "5 - The answer is correct and equivalent to the reference answer.\n"
+        "4 - The answer is mostly correct but has minor extra or missing wording.\n"
+        "3 - The answer is partially correct but incomplete or ambiguous.\n"
+        "2 - The answer is weakly related but misses important information.\n"
+        "1 - The answer is mostly incorrect.\n"
+        "0 - The answer is unsupported, contradictory, or irrelevant."
+    ),
+
+    "eval_examples_categorical": (
+        "Example 1:\n"
+        "Question: Current question: Who went to the store?\n"
+        "Answer: Jenny\n"
+        "Score: 5/5\n\n"
+        "Example 2:\n"
+        "Question: Current question: Who went to the store?\n"
+        "Answer: the park\n"
+        "Score: 0/5"
+    ),
+
+    "verification_examples": (
+        "Example 1:\n"
+        "Question: Current question: Who went to the store?\n"
+        "Answer: Jenny\n"
+        "Correctness: True\n\n"
+        "Example 2:\n"
+        "Question: Current question: Who went to the store?\n"
+        "Answer: the park\n"
+        "Correctness: False"
+    ),
+
+    "demo_sep": "\n\n\n",
+    "demo_prompt": "{INST}\n\n{D}\nQuestion: {Q}\n\nAnswer: {A}",
+    "doc_prompt": "Passage: {P}\n",
+
+    # Keep n_shot: 0 in the config unless you add real few-shot CoQA demos here.
+    "demos": [],
+}
+
 DATASET_PROFILES = {
     "asqa": asqa,
     "eli5": eli5,
     "qampari": qampari,
-    "cnndm": cnndm
+    "cnndm": cnndm,
+    "coqa": coqa,
 }
 TASK_PROFILES = DATASET_PROFILES
-DATASET_NAMES = ["asqa", "eli5", "qampari", "cnndm"]
+DATASET_NAMES = ["asqa", "eli5", "qampari", "cnndm", "coqa"]
